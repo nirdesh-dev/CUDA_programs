@@ -1,6 +1,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <time.h>
+#include<stdio.h>
 
 void sumArrayOnHost(float *A, float *B, float *C, const int N) {
     for (int idx=0; idx<N; idx++){
@@ -17,6 +18,14 @@ void initialData(float *ip, int size) {
    }
 }
 
+void printArray(const char *name, float *arr, int size) {
+    printf("%s: ", name);
+    for (int i = 0; i < size; i++) {
+        printf("%.2f ", arr[i]);
+    }
+    printf("\n");
+}
+
 int main(int argc, char **argv){
      int nElem = 1024;
     size_t nBytes = nElem * sizeof(float);
@@ -30,6 +39,12 @@ int main(int argc, char **argv){
     initialData(h_B, nElem);
 
     sumArrayOnHost(h_A, h_B, h_C, nElem);
+
+    // Print the arrays
+    printArray("A", h_A, nElem);
+    printArray("B", h_B, nElem);
+    printArray("C", h_C, nElem);
+    
 
     free(h_A);
     free(h_B);
